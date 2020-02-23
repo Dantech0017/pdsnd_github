@@ -17,14 +17,14 @@ def get_filters():
     """
     print('Hello there! Let\'s explore some US bikeshare data!\n')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    city = input('Please input the letter option of the city you are interested in learning more about ("a" for chicago,"b" for new york city, or "c" for washington):\n ').lower() 
-    
+    city = input('Please input the letter option of the city you are interested in learning more about ("a" for chicago,"b" for new york city, or "c" for washington):\n ').lower()
+
 #while loop checks for letter input or city name input by user. The reason for providing three options (a, b, or c) is to simplify the experience for the user and also prevent any user input errors.
     while True:
         if city == 'a' or city == 'chicago':
             print ("You have selected Chicago, great choice!\n")
             city = 'chicago'
-            break 
+            break
         if city == 'b' or city == 'new york':
             print ("You have selected New York City, great choice!\n")
             city = 'new york city'
@@ -35,29 +35,29 @@ def get_filters():
             break
         else:
             print('City input not valid. Let\'s try again! Make sure you to input one of the letter options (a, b, or c), or input the city\'s name.')
-            city = input('Please input the letter option of the city you are interested in learning more about ("a" for chicago,"b" for new york city, or "c" for washington): ').lower() 
-        
+            city = input('Please input the letter option of the city you are interested in learning more about ("a" for chicago,"b" for new york city, or "c" for washington): ').lower()
+
     # TO DO: get user input for month (all, january, february, ... , june)
     month_options = {1:'january', 2:'february', 3:'march', 4:'april', 5:'may', 6:'june', 0:'all months'}
-    
+
     month = int(input("\nNow, please select a month from these options by inputting the number associated with it: {}:\n ".format(month_options)))
     month_numbers = month_options.keys()
-    
+
     # allows user to try again if input is not within the month options
-    while month not in month_numbers: 
+    while month not in month_numbers:
         month = int(input('\nWe did not recognize that input. \nLet\'s try again! Input the option number here: \n'))
 
-    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)    
+    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     day_options = {0:'monday', 1:'tuesday', 2:'wednesday', 3:'thursday', 4:'friday', 5:'saturday', 6:'sunday', 7:'all days of the week'}
-    
-    day = int(input("\nLastly, let's select the day of the week. Please select the option number from these options: {}:\n ".format(day_options))) 
+
+    day = int(input("\nLastly, let's select the day of the week. Please select the option number from these options: {}:\n ".format(day_options)))
     day_numbers = day_options.keys()
-  
+
     # allows user to try again if input is not within the day options
-    while day not in day_numbers: 
+    while day not in day_numbers:
         day = int(input('We did not recognize that input. \nLet\'s try again! Input the option number here: '))
-                
-    #while day.lower() not in 
+
+    #while day.lower() not in
     print('-'*40)
     return city, month, day
 
@@ -77,14 +77,14 @@ def load_data(city, month, day):
 
     # adding columns to verify month and day with start date
     df['month'] = pd.to_datetime(df['Start Time']).dt.month
-    df['day'] = pd.to_datetime(df['Start Time']).dt.dayofweek 
-    
+    df['day'] = pd.to_datetime(df['Start Time']).dt.dayofweek
+
     # filters the data by month, where 0 = 'all months'
     if month != 0:
         df = df[df['month'] == month]
-    
-    # filters the data by day, where 7 = 'all days' 
-    if day != 7: 
+
+    # filters the data by day, where 7 = 'all days'
+    if day != 7:
         df = df[df['day'] == day]
 
     return df
@@ -135,7 +135,7 @@ def trip_duration_stats(df):
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
-    
+
     seconds_in_an_hour = 3600
 
     # TO DO: display total travel time
@@ -143,17 +143,17 @@ def trip_duration_stats(df):
     total_days = total_travel_time//24//seconds_in_an_hour
     total_weeks = total_days // 7
     remainder_days = total_days % 7
-    
+
     # helpful resource to convert time to seconds: https://www.pythonprogramming.in/convert-time-unit-seconds-in-days-hours-minutes.html
 
     print("The total travel time is: {} weeks and {} days".format(total_weeks, remainder_days))
-    
+
     # TO DO: display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
     mean_minutes = mean_travel_time // 60
     mean_seconds = mean_travel_time % 60
     print("The mean travel time is: {} minutes and {} seconds".format(mean_minutes, mean_seconds))
-       
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -167,19 +167,19 @@ def user_stats(df, city):
     # TO DO: Display counts of user types
     # value_counts pandas resource: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html
     print("User Type Counts is: \n{}\n".format(df['User Type'].value_counts()))
-    
+
     # TO DO: Display counts of gender
-    #Washington csv has no gender column 
-    if city == 'washington': 
+    #Washington csv has no gender column
+    if city == 'washington':
         print("\nThere is no gender count or birth year available for Washington at this time.\n")
     else:
         print("\nUser gender count is as follows: \n{}\n".format(df['Gender'].value_counts()))
     # TO DO: Display earliest, most recent, and most common year of birth        
-        earliest_dob = str(int(df['Birth Year'].min()))
-        recent_dob = str(int(df['Birth Year'].max()))
-        most_common_dob = str(int(df['Birth Year'].mode()))
+        earliest_birth_year = str(int(df['Birth Year'].min()))
+        recent_birth_year = str(int(df['Birth Year'].max()))
+        most_birth_year = str(int(df['Birth Year'].mode()))
 
-        print("\nThe earliest birth year is: {}\nThe most recent birth year is: {}\nThe most common birth year is: {}\n".format(earliest_dob, recent_dob, most_common_dob))
+        print("\nThe earliest birth year is: {}\nThe most recent birth year is: {}\nThe most common birth year is: {}\n".format(earliest_birth_year, recent_birth_year, most_common_birth_year))
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
