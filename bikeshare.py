@@ -136,7 +136,7 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    # Converting seconds to hour to better display output 
+    # Converting seconds to hour to better display output
     seconds_in_an_hour = 3600
 
     # TO DO: display total travel time
@@ -175,12 +175,13 @@ def user_stats(df, city):
         print("\nThere is no gender count or birth year available for Washington at this time.\n")
     else:
         print("\nUser gender count is as follows: \n{}\n".format(df['Gender'].value_counts()))
-    # TO DO: Display earliest, most recent, and most common year of birth
-        earliest_dob = str(int(df['Birth Year'].min()))
-        recent_dob = str(int(df['Birth Year'].max()))
-        most_common_dob = str(int(df['Birth Year'].mode()))
 
-        print("\nThe earliest birth year is: {}\nThe most recent birth year is: {}\nThe most common birth year is: {}\n".format(earliest_dob, recent_dob, most_common_dob))
+    # TO DO: Display earliest, most recent, and most common year of birth
+        earliest_birth_year = str(int(df['Birth Year'].min()))
+        recent_birth_year = str(int(df['Birth Year'].max()))
+        most_birth_year = str(int(df['Birth Year'].mode()))
+
+        print("\nThe earliest birth year is: {}\nThe most recent birth year is: {}\nThe most common birth year is: {}\n".format(earliest_birth_year, recent_birth_year, most_common_birth_year))
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
